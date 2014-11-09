@@ -1,0 +1,4 @@
+mage
+====
+
+Magento test project
