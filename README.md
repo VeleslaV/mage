@@ -1,4 +1,0 @@
-mage
-====
-
-Magento test project
