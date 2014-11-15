@@ -1,0 +1,12 @@
+#general_form label {
+    font-weight: bold;
+}
+.small-image-preview  {
+    width: 280px;
+    height: auto;
+    float: left;
+    margin-bottom: 10px;
+}
+span.delete-image {
+    padding-left: 0px;
+}

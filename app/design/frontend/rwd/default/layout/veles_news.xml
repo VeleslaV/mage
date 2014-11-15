@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<layout>
+    <velesnews_index_index>
+        <reference name="content">
+            <block type="velesnews/news" template="veles_news/index.phtml" />
+        </reference>
+    </velesnews_index_index>
+    <velesnews_index_test>
+        <reference name="content">
+            <block type="core/template" template="veles_news/test.phtml" />
+        </reference>
+    </velesnews_index_test>
+    <velesnews_index_show>
+        <reference name="content">
+            <block type="velesnews/show" name="news.content" template="veles_news/show.phtml" />
+        </reference>
+    </velesnews_index_show>
+</layout>

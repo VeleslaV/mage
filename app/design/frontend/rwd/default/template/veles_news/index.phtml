@@ -1,0 +1,13 @@
+<?php
+    $news = $this->getNewsCollection();
+    $newsShowUrl = Mage::getUrl('news/index/show');
+?>
+<h2>News</h2>
+<?php foreach ($news as $item): ?>
+    <img src="<?=$item->getImageUrl();?>" class="thumb">
+    <h4>
+        <a href="<?=$newsShowUrl;?>?id=<?=$item->getId();?>">
+            <?=$item->getTitle();?>
+        </a>
+    </h4>
+<?php endforeach; ?>
