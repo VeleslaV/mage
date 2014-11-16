@@ -8,6 +8,18 @@
             $this->_init('velesnews/news');
         }
 
+        protected function _beforeSave()
+        {
+            $helper = Mage::helper('velesnews');
+
+            if (!$this->getData('link')) {
+                $this->setData('link', $helper->prepareUrl($this->getTitle()));
+            } else {
+                $this->setData('link', $helper->prepareUrl($this->getData('link')));
+            }
+            return parent::_beforeSave();
+        }
+
         protected function _afterDelete()
         {
             $helper = Mage::helper('velesnews');

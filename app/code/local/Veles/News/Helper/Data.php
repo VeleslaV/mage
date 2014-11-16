@@ -21,6 +21,11 @@
             }
         }
 
+        public function prepareUrl($url)
+        {
+            return trim(preg_replace('/-+/', '-', preg_replace('/[^a-z0-9]/sUi', '-', strtolower(trim($url)))), '-');
+        }
+
         public function getCategoriesList()
         {
             $categories = Mage::getModel('velesnews/category')->getCollection()->load();

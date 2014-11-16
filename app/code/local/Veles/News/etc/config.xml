@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Veles_News>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </Veles_News>
     </modules>
     <frontend>
@@ -89,5 +89,15 @@
                 <class>Veles_News_Helper</class>
             </velesnews>
         </helpers>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <velesnews>
+                        <class>Veles_News_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </velesnews>
+                </observers>
+            </controller_front_init_routers>
+        </events>
     </global>
 </config>

@@ -24,6 +24,12 @@
                 'name' => 'title',
             ));
 
+
+            $fieldset->addField('link', 'text', array(
+                'label' => $helper->__('Link'),
+                'name' => 'link',
+            ));
+
             $fieldset->addField('content', 'editor', array(
                 'label' => $helper->__('Content'),
                 'required' => true,

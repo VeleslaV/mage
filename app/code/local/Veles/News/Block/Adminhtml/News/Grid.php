@@ -25,6 +25,12 @@
                 'type' => 'text',
             ));
 
+            $this->addColumn('link', array(
+                'header' => $helper->__('Link'),
+                'index' => 'link',
+                'type' => 'text',
+            ));
+
             $this->addColumn('content', array(
                 'header' => $helper->__('Content'),
                 'index' => 'content',
