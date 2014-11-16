@@ -31,6 +31,14 @@
                 'type' => 'text',
             ));
 
+            $this->addColumn('category', array(
+                'header' => $helper->__('Category'),
+                'index' => 'category_id',
+                'options' => $helper->getCategoriesList(),
+                'type'  => 'options',
+                'width' => '150px',
+            ));
+
             $this->addColumn('created', array(
                 'header' => $helper->__('Created'),
                 'index' => 'created',

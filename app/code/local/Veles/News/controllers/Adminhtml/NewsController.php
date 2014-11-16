@@ -1,14 +1,12 @@
 <?php
+
     class Veles_News_Adminhtml_NewsController extends Mage_Adminhtml_Controller_Action
     {
 
         public function indexAction()
         {
-            $this->loadLayout();
-            $this->_setActiveMenu('velesnews');
-
-            $contentBlock = $this->getLayout()->createBlock('velesnews/adminhtml_news');
-            $this->_addContent($contentBlock);
+            $this->loadLayout()->_setActiveMenu('velesnews');
+            $this->_addContent($this->getLayout()->createBlock('velesnews/adminhtml_news'));
             $this->renderLayout();
         }
 

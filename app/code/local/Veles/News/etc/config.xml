@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Veles_News>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Veles_News>
     </modules>
     <frontend>
@@ -39,7 +39,18 @@
             <velesnews module="velesnews">
                 <title>News</title>
                 <sort_order>77</sort_order>
-                <action>velesnews_admin/adminhtml_news</action>
+                <children>
+                    <velesnews_news translate="title" module="velesnews">
+                        <title>News</title>
+                        <sort_order>10</sort_order>
+                        <action>velesnews_admin/adminhtml_news</action>
+                    </velesnews_news>
+                    <velesnews_category translate="title" module="velesnews">
+                        <title>Categories</title>
+                        <sort_order>20</sort_order>
+                        <action>velesnews_admin/adminhtml_category</action>
+                    </velesnews_category>
+                </children>
             </velesnews>
         </menu>
     </adminhtml>
@@ -60,6 +71,9 @@
                     <table_news>
                         <table>veles_news_entities</table>
                     </table_news>
+                    <table_categories>
+                        <table>veles_news_categories</table>
+                    </table_categories>
                 </entities>
             </velesnews_resource>
         </models>

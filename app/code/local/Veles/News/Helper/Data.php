@@ -20,4 +20,33 @@
                 return $url;
             }
         }
+
+        public function getCategoriesList()
+        {
+            $categories = Mage::getModel('velesnews/category')->getCollection()->load();
+            $output = array();
+            foreach ($categories as $category) {
+                $output[$category->getId()] = $category->getTitle();
+            }
+            return $output;
+        }
+
+
+        public function getCategoriesOptions()
+        {
+            $categories = Mage::getModel('velesnews/category')->getCollection()->load();
+            $options = array();
+            $options[] = array(
+                'label' => '',
+                'value' => ''
+            );
+            foreach ($categories as $category) {
+                $options[] = array(
+                    'label' => $category->getTitle(),
+                    'value' => $category->getId(),
+                );
+            }
+            return $options;
+
+        }
     }

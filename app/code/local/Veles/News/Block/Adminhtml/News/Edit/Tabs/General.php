@@ -12,6 +12,12 @@
             $form = new Varien_Data_Form();
             $fieldset = $form->addFieldset('general_form', array('legend' => $helper->__('General Information')));
 
+            $fieldset->addField('category_id', 'select', array(
+                'label' => $helper->__('Category'),
+                'name' => 'category_id',
+                'values' => $helper->getCategoriesOptions(),
+            ));
+
             $fieldset->addField('title', 'text', array(
                 'label' => $helper->__('Title'),
                 'required' => true,
