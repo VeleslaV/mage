@@ -10,12 +10,16 @@
 
         protected function _afterDelete()
         {
-            $newsCollection = Mage::getModel('velesnews/news')->getCollection()
-                ->addFieldToFilter('category_id', $this->getId());
-            foreach($newsCollection as $news){
+            foreach($this->getNewsCollection() as $news){
                 $news->setCategoryId(0)->save();
             }
             return parent::_afterDelete();
         }
 
+        public function getNewsCollection()
+        {
+            $collection = Mage::getModel('velesnews/news')->getCollection();
+            $collection->addFieldToFilter('category_id', $this->getId());
+            return $collection;
+        }
     }
