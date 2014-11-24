@@ -1,0 +1,18 @@
+<?php
+    $categories = Mage::getModel('velesfaq/category')->getCollection()->setOrder('category_id', 'ASC');
+    $categoryViewUrl = Mage::getUrl('faq/index/category');
+?>
+<div class="block block-list block-faq-categories">
+    <div class="block-title">
+        <strong>
+            <span>FAQ Categories</span>
+        </strong>
+    </div>
+    <div class="block-content">
+        <p class="empty">
+            <?php foreach ($categories as $item): ?>
+                <a href="<?php echo $categoryViewUrl; ?>?id=<?php echo $item->getId(); ?>"><?php echo $item->getTitle(); ?></a><br/>
+            <?php endforeach; ?>
+        </p>
+    </div>
+</div>

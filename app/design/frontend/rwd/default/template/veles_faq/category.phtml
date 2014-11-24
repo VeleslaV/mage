@@ -1,0 +1,25 @@
+<?php
+    $categoryId = Mage::app()->getRequest()->getParam('id', 0);
+
+    $currentCategory = Mage::getModel('velesfaq/category')->load($categoryId);
+
+    $question = $this->getFaqByCategoryCollection($categoryId, '3');
+    $questionViewUrl = Mage::getUrl('faq/index/view');
+    $mainFaqUrl = Mage::getUrl('faq');
+?>
+<div class="page-title">
+    <h1><?=$currentCategory->getTitle();?></h1>
+</div>
+<div style="margin: 0px 0px 100px 0px;">
+    <?php foreach ($question as $item): ?>
+        <h2>
+            <a href="<?php echo $questionViewUrl; ?>?id=<?php echo $item->getId(); ?>">
+                <?php echo $item->getTitle(); ?>
+            </a>
+        </h2>
+    <?php endforeach; ?>
+</div>
+
+<div>
+    <a href="<?=$mainFaqUrl;?>">< Create Your Own Question</a>
+</div>

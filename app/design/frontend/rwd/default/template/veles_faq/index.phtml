@@ -1,0 +1,114 @@
+<?php
+    $question = $this->getFaqCollection('3');
+    $questionViewUrl = Mage::getUrl('faq/index/view');
+    $questionSaveUrl = Mage::getUrl('faq/index/save');
+    $helper = Mage::helper('velesfaq');
+    $categoriesOptions = $helper->getCategoriesOptions();
+?>
+<div class="page-title">
+    <h1>FAQ</h1>
+</div>
+<div style="margin: 0px 0px 100px 0px;">
+    <?php foreach ($question as $item): ?>
+        <h2>
+            <a href="<?php echo $questionViewUrl; ?>?id=<?php echo $item->getId(); ?>">
+                <?php echo $item->getTitle(); ?>
+            </a>
+        </h2>
+    <?php endforeach; ?>
+</div>
+
+<div id="formResult"></div>
+<form id="questionCreateForm" method="post" class="scaffold-form">
+    <div class="fieldset">
+        <div class="page-title"><h1><?=$helper->__('Create Your Own Question');?></h1></div>
+        <p class="required"><?=$helper->__('* Required Fields');?></p>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="user_email" class="required"><em>*</em><?=$helper->__('Email');?></label>
+                    <div class="input-box">
+                        <input name="user_email" id="user_email" title="<?=$helper->__('Email');?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="title" class="required"><em>*</em><?=$helper->__('Title');?></label>
+                    <div class="input-box">
+                        <input name="title" id="title" title="<?=$helper->__('Title');?>" value="" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="category" class="required"><em>*</em><?=$helper->__('Category');?></label>
+                    <div class="input-box">
+                        <select name="category" id="category" title="<?=$helper->__('Category');?>" class="validate-select required-entry">
+                            <?php foreach ($categoriesOptions as $categoriesOptionsItem): ?>
+                                <option value="<?=$categoriesOptionsItem['value'];?>"><?=$categoriesOptionsItem['label'];?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="wide">
+                <label for="question" class="required"><em>*</em><?=$helper->__('Question');?></label>
+                <div class="input-box">
+                    <textarea name="question" id="question" title="<?=$helper->__('Question');?>" class="required-entry input-text" cols="4" rows="6"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="submitButtons" class="buttons-set">
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?=$helper->__('Submit');?>" class="button"><span><span><?=$helper->__('Submit');?></span></span></button>
+    </div>
+    <div id="formLoader" style="display:none;">
+        <img src="/media/veles_faq/opc-ajax-loader.gif">
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+        var contactForm = new VarienForm('questionCreateForm', true);
+
+        var formId = 'questionCreateForm';
+        var myForm = new VarienForm(formId, true);
+        var postUrl = '<?=$questionSaveUrl;?>';
+        var success_mess = 'Your inquiry was submitted and will be responded to as soon as possible. Thank you';
+        var error_mess = 'Unable to submit your request. Please, try again later';
+
+        function doAjax() {
+            if(myForm.validator.validate()) {
+                new Ajax.Updater({ success:'formSuccess' }, postUrl, {
+                        method:'post',
+                        asynchronous:true,
+                        evalScripts:false,
+                        onComplete:function(transport) {
+                            Element.hide('submitButtons');
+                            Element.hide('formLoader');
+                            var result = transport.responseText;
+                            if(result == 'success'){
+                                showMessage(success_mess, result);
+                            }
+                            if(result == 'error'){
+                                showMessage(error_mess, result);
+                            }
+                        },
+                        onLoading:function(request, json){
+                            Element.hide('submitButtons');
+                            Element.show('formLoader');
+                        },
+                        parameters: $(formId).serialize(true)
+                    }
+                );
+            }
+        }
+
+        function showMessage(message, message_type) {
+            var html = '<ul class="messages"><li class="'+message_type+'-msg"><ul><li>' + message + '</li></ul></li></ul>';
+            $('formResult').update(html);
+        }
+
+        new Event.observe(formId, 'submit', function(e){
+            e.stop();
+            doAjax();
+        });
+    //]]>
+</script>
