@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<widgets>
+    <veles_widget_recentlysold type="recentlysold/widget" translate="name description" module="recentlysold">
+        <name>Recently Sold Widget</name>
+        <description type="desc">Displays a list of recently sold products</description>
+        <parameters>
+            <products_to_display>
+                <label>Number of Orders to display</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <source_model>recentlysold/WidgetOptions</source_model>
+            </products_to_display>
+            <template translate="label">
+                <label>Frontend Template</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <values>
+                    <text translate="label">
+                        <value>veles_recentlysold/grid.phtml</value>
+                        <label>Grid View</label>
+                    </text>
+                    <icons translate="label">
+                        <value>veles_recentlysold/list.phtml</value>
+                        <label>List View</label>
+                    </icons>
+                </values>
+            </template>
+        </parameters>
+    </veles_widget_recentlysold>
+</widgets>
