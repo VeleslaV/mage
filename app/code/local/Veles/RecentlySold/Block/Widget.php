@@ -5,10 +5,7 @@
         {
             $orders_to_display = $this->getData('products_to_display');
 
-            $model = Mage::getModel('recentlysold/products');
-            Mage::register('recently_sold_model', $model);
-
-            $itemsCollection = Mage::registry('recently_sold_model')->getRecentlySoldItems($orders_to_display);
+            $itemsCollection = Mage::getModel('recentlysold/products')->getRecentlySoldItems($orders_to_display);
             $this->assign('products_list', $itemsCollection);
 
             return parent::_toHtml();
