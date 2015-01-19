@@ -1,0 +1,20 @@
+<?php if($this->getSource() instanceof Mage_Sales_Model_Order): ?>
+
+    <?php if ((float)$this->getSource()->getCostumerCreditAmountRefunded() > 0): ?>
+        <tr>
+            <td class="label"><strong><?php echo Mage::helper('costumercredit')->__('Costumer Credit refunded') ?></strong></td>
+            <td><strong><?php echo $this->getSource()->getCostumerCreditAmountRefunded(); ?></strong></td>
+        </tr>
+    <?php endif; ?>
+
+<?php else: ?>
+
+    <?php if ((float)$this->getSource()->getCostumerCreditAmount()): ?>
+        <tr>
+            <td class="label"><strong><?php echo Mage::helper('costumercredit')->__('Costumer Credit Refunded') ?></strong>111111111111111111111111111111111</td>
+            <td><strong><?php echo $this->getSource()->getCostumerCreditAmount(); ?></strong></td>
+        </tr>
+    <?php endif;  ?>
+
+<?php endif; ?>
+
