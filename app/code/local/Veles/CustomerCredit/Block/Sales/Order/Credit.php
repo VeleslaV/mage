@@ -1,5 +1,5 @@
 <?php
-    class Veles_CustomerCredit_Block_Sales_Order_CustomerCredit extends Mage_Core_Block_Template
+    class Veles_CustomerCredit_Block_Sales_Order_Credit extends Mage_Core_Block_Template
     {
         public function getOrder()
         {
@@ -20,7 +20,7 @@
                 $this->getParentBlock()->addTotal(new Varien_Object(array(
                     'code'   => 'customercredit',
                     'strong' => false,
-                    'label'  => Mage::helper('customercredit')->__('Customer Credit'),
+                    'label'  => Mage::helper('velescustomercredit')->__('Customer Credit'),
                     'value'  => $value
                 )));
             }

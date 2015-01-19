@@ -1,5 +1,5 @@
 <?php
-    class Veles_CustomerCredit_Model_Sales_Order_Total_Creditmemo_CustomerCredit extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
+    class Veles_CustomerCredit_Model_Sales_Order_Total_Creditmemo_Credit extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
     {
         public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
         {

@@ -2,35 +2,41 @@
 <config>
     <modules>
         <Veles_CustomerCredit>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Veles_CustomerCredit>
     </modules>
     <global>
         <models>
-            <customercredit>
+            <velescustomercredit>
                 <class>Veles_CustomerCredit_Model</class>
-            </customercredit>
+                <resourceModel>velescustomercredit_resource</resourceModel>
+            </velescustomercredit>
+            <velescustomercredit_resource>
+                <class>Veles_CustomerCredit_Model_Resource</class>
+                <entities>
+                    <table_customercredit>
+                        <table>veles_customercredit_items</table>
+                    </table_customercredit>
+                </entities>
+            </velescustomercredit_resource>
         </models>
-        <blocks>
-            <customercredit>
-                <class>Veles_CustomerCredit_Block</class>
-            </customercredit>
-        </blocks>
-        <helpers>
-            <customercredit>
-                <class>Veles_CustomerCredit_Helper</class>
-            </customercredit>
-        </helpers>
         <resources>
-            <customercredit>
+            <veles_customercredit_setup>
                 <setup>
                     <module>Veles_CustomerCredit</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
-            </customercredit>
+            </veles_customercredit_setup>
         </resources>
+        <blocks>
+            <velescustomercredit>
+                <class>Veles_CustomerCredit_Block</class>
+            </velescustomercredit>
+        </blocks>
+        <helpers>
+            <velescustomercredit>
+                <class>Veles_CustomerCredit_Helper</class>
+            </velescustomercredit>
+        </helpers>
         <pdf>
             <totals>
                 <customercredit translate="title">
@@ -83,23 +89,23 @@
             <quote>
                 <totals>
                     <customercredit>
-                        <class>customercredit/sales_quote_address_total_customerCredit</class>
-                        <renderer>customercredit/checkout_totals_customerCredit</renderer>
-                        <admin_renderer>customercredit/adminhtml_sales_order_create_totals_customerCredit</admin_renderer>
+                        <class>velescustomercredit/sales_quote_address_total_credit</class>
+                        <renderer>velescustomercredit/checkout_totals_credit</renderer>
+                        <admin_renderer>velescustomercredit/adminhtml_sales_order_create_totals_credit</admin_renderer>
                     </customercredit>
                 </totals>
             </quote>
             <order_invoice>
                 <totals>
                     <customercredit>
-                        <class>customercredit/sales_order_total_invoice_customerCredit</class>
+                        <class>velescustomercredit/sales_order_total_invoice_credit</class>
                     </customercredit>
                 </totals>
             </order_invoice>
             <order_creditmemo>
                 <totals>
                     <customercredit>
-                        <class>customercredit/sales_order_total_creditmemo_customerCredit</class>
+                        <class>velescustomercredit/sales_order_total_creditmemo_credit</class>
                     </customercredit>
                 </totals>
             </order_creditmemo>
@@ -108,18 +114,18 @@
     <frontend>
         <layout>
             <updates>
-                <customercredit>
+                <velescustomercredit>
                     <file>veles_customercredit.xml</file>
-                </customercredit>
+                </velescustomercredit>
             </updates>
         </layout>
     </frontend>
     <adminhtml>
         <layout>
             <updates>
-                <customercredit>
+                <velescustomercredit>
                     <file>veles_customercredit.xml</file>
-                </customercredit>
+                </velescustomercredit>
             </updates>
         </layout>
     </adminhtml>
