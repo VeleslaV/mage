@@ -9,28 +9,7 @@
                 <visible>1</visible>
                 <required>1</required>
                 <type>select</type>
-                <values>
-                    <two translate="label">
-                        <value>2</value>
-                        <label>2</label>
-                    </two>
-                    <four translate="label">
-                        <value>4</value>
-                        <label>4</label>
-                    </four>
-                    <six translate="label">
-                        <value>6</value>
-                        <label>6</label>
-                    </six>
-                    <eight translate="label">
-                        <value>8</value>
-                        <label>8</label>
-                    </eight>
-                    <ten translate="label">
-                        <value>10</value>
-                        <label>10</label>
-                    </ten>
-                </values>
+                <source_model>recentlysold/WidgetOptions</source_model>
             </products_to_display>
             <template translate="label">
                 <label>Frontend Template</label>
