@@ -40,6 +40,7 @@
                 <class>Veles_Fee_Helper</class>
             </fee>
         </helpers>
+        <extraconfig />
         <pdf>
             <totals>
                 <fee translate="title">
@@ -124,6 +125,13 @@
         </layout>
     </frontend>
     <adminhtml>
+        <layout>
+            <updates>
+                <fee>
+                    <file>veles_fee.xml</file>
+                </fee>
+            </updates>
+        </layout>
         <menu>
             <fee module="fee">
                 <title>Fee</title>
@@ -137,6 +145,25 @@
                 </children>
             </fee>
         </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <fee_options>
+                                            <title>Store Hello World Module Section</title>
+                                        </fee_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
     <admin>
         <routers>

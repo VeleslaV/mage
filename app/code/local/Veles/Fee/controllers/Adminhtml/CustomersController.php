@@ -29,9 +29,7 @@
                 try {
                     $model = Mage::getModel('fee/fee');
                     $model->setData($data)->setId($this->getRequest()->getParam('id'));
-                    if(!$model->getCreated()){
-                        $model->setCreated(now());
-                    }
+
                     $model->save();
 
                     Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Customer credit data was saved successfully'));

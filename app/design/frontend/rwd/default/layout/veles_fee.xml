@@ -1,15 +1,4 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Created by Magentix
- * Based on Module from "Excellence Technologies" (excellencetechnologies.in)
- *
- * @category   Magentix
- * @package    Magentix_Fee
- * @author     Matthieu Vion (http://www.magentix.fr)
- * @license    This work is free software, you can redistribute it and/or modify it
- */
--->
 <layout version="0.1.0">
     <sales_order_view>
         <reference name="order_totals">
@@ -58,4 +47,11 @@
             <block type="fee/sales_order_fee" name="fee" />
         </reference>
     </sales_email_order_creditmemo_items>
+
+    <customer_account_index translate="label">
+        <label>Customer credit Info</label>
+        <reference name="customer_account_dashboard">
+            <block type="fee/customer_account_fee" after="customer_account_dashboard_hello" name="fee_customercredit" template="veles_fee/customer/account/credits.phtml"/>
+        </reference>
+    </customer_account_index>
 </layout> 

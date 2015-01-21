@@ -20,10 +20,8 @@
             return $resultCostumerCredit;
         }
 
-        public static function canApply($address)
+        public static function canApply()
         {
-//            echo Mage::getStoreConfig('sales/cc_settings/first_opt')." - ".Mage::getStoreConfig('sales/cc_settings/second_opt');
-
             if(Veles_Fee_Model_Fee::getFee()>0){
                 $thisResult = true;
             }else{

@@ -17,7 +17,7 @@
 
             $quote = $address->getQuote();
 
-            if (Veles_Fee_Model_Fee::canApply($address)) {
+            if (Veles_Fee_Model_Fee::canApply()) {
                 $exist_amount = $quote->getFeeAmount();
                 $fee = Veles_Fee_Model_Fee::getFee();
                 $balance = $fee - $exist_amount;
@@ -39,7 +39,7 @@
             $amount = $address->getFeeAmount();
             $address->addTotal(array(
                 'code' => $this->getCode(),
-                'title' => Mage::helper('fee')->__('Fee'),
+                'title' => Mage::helper('fee')->__('Fee!'),
                 'value' => $amount
             ));
             return $this;
