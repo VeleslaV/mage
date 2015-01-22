@@ -72,6 +72,14 @@
                     </paypal_prepare_line_items>
                 </observers>
             </paypal_prepare_line_items>
+            <sales_order_place_after>
+                <observers>
+                    <sales_order_place_after>
+                        <class>fee/observer</class>
+                        <method>orderPlaceAfter</method>
+                    </sales_order_place_after>
+                </observers>
+            </sales_order_place_after>
             <sales_order_invoice_save_after>
                 <observers>
                     <sales_order_invoice_save_after>
@@ -123,6 +131,15 @@
                 </fee>
             </updates>
         </layout>
+        <routers>
+            <fee>
+                <use>standard</use>
+                <args>
+                    <module>Veles_Fee</module>
+                    <frontName>fee</frontName>
+                </args>
+            </fee>
+        </routers>
     </frontend>
     <adminhtml>
         <layout>
@@ -154,7 +171,7 @@
                                 <config>
                                     <children>
                                         <fee_options>
-                                            <title>Store Hello World Module Section</title>
+                                            <title>Module Settings Section</title>
                                         </fee_options>
                                     </children>
                                 </config>

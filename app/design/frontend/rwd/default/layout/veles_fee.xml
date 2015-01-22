@@ -54,4 +54,16 @@
             <block type="fee/customer_account_fee" after="customer_account_dashboard_hello" name="fee_customercredit" template="veles_fee/customer/account/credits.phtml"/>
         </reference>
     </customer_account_index>
+
+    <checkout_cart_index>
+        <label>Pay with bonuses</label>
+        <reference name="checkout.cart">
+            <block type="core/text_list" name="coupon.and.offers" as="coupon">
+                <action method="insert">
+                    <block>checkout.cart.coupon</block>
+                </action>
+                <block type="fee/checkout_cart_credit" name="fee_credit_field" template="veles_fee/checkout/cart/credit.phtml" after="checkout.cart.coupon" />
+            </block>
+        </reference>
+    </checkout_cart_index>
 </layout> 

@@ -7,7 +7,7 @@
             $this->_init('fee/fee');
         }
 
-        public static function getFee()
+        public static function getTotalFee()
         {
             if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customerData = Mage::getSingleton('customer/session')->getCustomer();
@@ -20,9 +20,21 @@
             return $resultCostumerCredit;
         }
 
+        public static function getFee()
+        {
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $quote = Mage::getSingleton('checkout/cart')->getQuote();
+                $resultCostumerFee = $quote->getData("fee_amount");
+            }else{
+                $resultCostumerFee = 0;
+            }
+
+            return $resultCostumerFee;
+        }
+
         public static function canApply()
         {
-            if(Veles_Fee_Model_Fee::getFee()>0){
+            if((Veles_Fee_Model_Fee::getTotalFee()>0) AND (Veles_Fee_Model_Fee::getTotalFee() >= Veles_Fee_Model_Fee::getFee())){
                 $thisResult = true;
             }else{
                 $thisResult = false;

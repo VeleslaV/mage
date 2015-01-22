@@ -15,17 +15,11 @@
                 return $this;
             }
 
-            $quote = $address->getQuote();
-
             if (Veles_Fee_Model_Fee::canApply()) {
-                $exist_amount = $quote->getFeeAmount();
                 $fee = Veles_Fee_Model_Fee::getFee();
-                $balance = $fee - $exist_amount;
 
-                $address->setFeeAmount($balance);
-                $address->setBaseFeeAmount($balance);
-
-                $quote->setFeeAmount($balance);
+                $address->setFeeAmount($fee);
+                $address->setBaseFeeAmount($fee);
 
                 $address->setGrandTotal($address->getGrandTotal() - $address->getFeeAmount());
                 $address->setBaseGrandTotal($address->getBaseGrandTotal() - $address->getBaseFeeAmount());
@@ -37,11 +31,15 @@
         public function fetch(Mage_Sales_Model_Quote_Address $address)
         {
             $amount = $address->getFeeAmount();
-            $address->addTotal(array(
-                'code' => $this->getCode(),
-                'title' => Mage::helper('fee')->__('Fee!'),
-                'value' => $amount
-            ));
+
+            if($amount>0){
+                $address->addTotal(array(
+                    'code' => $this->getCode(),
+                    'title' => Mage::helper('fee')->__('Fee'),
+                    'value' => $amount
+                ));
+            }
+
             return $this;
         }
     }

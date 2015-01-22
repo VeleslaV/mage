@@ -3,7 +3,7 @@
     {
         protected function _toHtml()
         {
-            $itemsCollection = Mage::getModel('fee/fee')->getFee();
+            $itemsCollection = Mage::getModel('fee/fee')->getTotalFee();
             $this->assign('customer_credits', $itemsCollection);
 
             return parent::_toHtml();
