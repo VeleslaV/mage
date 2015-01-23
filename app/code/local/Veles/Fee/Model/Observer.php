@@ -18,15 +18,11 @@
 
             return $this;
         }
+
         public function invoiceSaveAfter(Varien_Event_Observer $observer)
         {
             $invoice = $observer->getEvent()->getInvoice();
             $order = $invoice->getOrder();
-
-            if ($invoice->getBaseFeeAmount()) {
-                $order->setFeeAmountInvoiced($order->getFeeAmountInvoiced() + $invoice->getFeeAmount());
-                $order->setBaseFeeAmountInvoiced($order->getBaseFeeAmountInvoiced() + $invoice->getBaseFeeAmount());
-            }
 
             $feeModel = Mage::getModel('fee/fee');
             $feeModel->load($order->getData("customer_id"));
@@ -43,6 +39,14 @@
             $feeModel->setData('credit_amount', $resultFeeAmount);
             $feeModel->save();
 
+            if ($invoice->getBaseFeeAmount()) {
+                $order->setFeeAmountInvoiced($order->getFeeAmountInvoiced() + $invoice->getFeeAmount());
+                $order->setBaseFeeAmountInvoiced($order->getBaseFeeAmountInvoiced() + $invoice->getBaseFeeAmount());
+            }
+
+            $order->setFeeAmountGranted($addFeeAmount);
+            $order->setBaseFeeAmountGranted($addFeeAmount);
+
             return $this;
         }
 
@@ -58,14 +62,8 @@
 
             $feeModel = Mage::getModel('fee/fee');
             $feeModel->load($order->getData("customer_id"));
-            $addFeeRule = Mage::getStoreConfig('fee_options/rules/fee_method_rule');
 
-            if($addFeeRule == "static"){
-                $addFeeAmount = round(Mage::getStoreConfig('fee_options/rules/fee_static_rule'), 2);
-            }else{
-                $addFeePercentage = Mage::getStoreConfig('fee_options/rules/fee_percentage_rule');
-                $addFeeAmount = round(($order->getBaseGrandTotal() / 100) * $addFeePercentage, 2);
-            }
+            $addFeeAmount = $order->getBaseFeeAmountGranted();
             $resultFeeAmount = ($feeModel->getData("credit_amount") - $addFeeAmount) + $creditmemo->getBaseFeeAmount();
 
             $feeModel->setData('credit_amount', $resultFeeAmount);
