@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Veles_RecentlySold>
+            <version>0.0.1</version>
+        </Veles_RecentlySold>
+    </modules>
+    <global>
+        <blocks>
+            <recentlysold>
+                <class>Veles_RecentlySold_Block</class>
+            </recentlysold>
+        </blocks>
+        <helpers>
+            <recentlysold>
+                <class>Veles_RecentlySold_Helper</class>
+            </recentlysold>
+        </helpers>
+        <models>
+            <recentlysold>
+                <class>Veles_RecentlySold_Model</class>
+            </recentlysold>
+        </models>
+    </global>
+</config>
