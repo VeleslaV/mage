@@ -1,0 +1,79 @@
+<style>
+    .credit-form:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    #credit-form h2,
+    .cart .giftcard h2 {
+        display: none;
+    }
+    #credit-form label,
+    .cart .giftcard label {
+        font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: left;
+        text-transform: uppercase;
+        min-width: 105px;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    #credit-form .field-wrapper,
+    .cart .giftcard .field-wrapper {
+        display: inline-block;
+    }
+
+    #credit-form .button-wrapper,
+    .cart .giftcard .button-wrapper {
+        display: inline-block;
+        vertical-align: bottom;
+    }
+    #credit-form .button-wrapper > button,
+    .cart .giftcard .button-wrapper > button {
+        float: left;
+    }
+    #credit-form .input-text,
+    .cart .giftcard .input-text {
+        border-radius: 0;
+        height: 30px;
+        margin: 4px 10px 0 0;
+        width: 130px;
+    }
+</style>
+<?php $quote = Mage::getSingleton('checkout/cart')->getQuote(); ?>
+<form id="credit-form" action="<?php echo $this->getUrl('credit/cart/creditPost') ?>" method="post">
+    <div class="discount">
+        <div class="credit-form">
+            <label for="credit_code"><?php echo $this->__($creditMess) ?></label>
+            <input type="hidden" name="remove" id="remove-credit" value="0" />
+            <div class="field-wrapper">
+                <input class="input-text" type="text" id="credit_code" name="credit_code" value="<?php if($quote->getData("credit_amount")>0){ echo $this->escapeHtml($quote->getData("credit_amount")); } ?>" />
+                <div class="button-wrapper">
+                    <button type="button" title="<?php echo $this->__('Apply') ?>" class="button2" onclick="creditForm.submit(false)" value="<?php echo $this->__('Apply') ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
+                    <?php if($quote->getData("credit_amount")>0): ?>
+                        <button type="button" title="<?php echo $this->__('Cancel') ?>" class="button2 cancel-credit" onclick="creditForm.submit(true)" value="<?php echo $this->__('Cancel') ?>"><span><span><?php echo $this->__('Cancel') ?></span></span>
+                        </button>
+                    <?php endif;?>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var creditForm = new VarienForm('credit-form');
+    creditForm.submit = function (isRemove) {
+        if (isRemove) {
+            $('credit_code').removeClassName('required-entry');
+            $('remove-credit').value = "1";
+        } else {
+            $('credit_code').addClassName('required-entry');
+            $('remove-credit').value = "0";
+        }
+        return VarienForm.prototype.submit.bind(creditForm)();
+    }
+    //]]>
+</script>
+
