@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<widgets>
+    <veles_widget_recentlysold type="recentlysold/widget" translate="name description" module="recentlysold">
+        <name>Recently Sold Widget</name>
+        <description type="desc">Displays a list of recently sold products</description>
+        <parameters>
+            <products_to_display>
+                <label>Number of Orders to display</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <values>
+                    <two translate="label">
+                        <value>2</value>
+                        <label>2</label>
+                    </two>
+                    <four translate="label">
+                        <value>4</value>
+                        <label>4</label>
+                    </four>
+                    <six translate="label">
+                        <value>6</value>
+                        <label>6</label>
+                    </six>
+                    <eight translate="label">
+                        <value>8</value>
+                        <label>8</label>
+                    </eight>
+                    <ten translate="label">
+                        <value>10</value>
+                        <label>10</label>
+                    </ten>
+                </values>
+            </products_to_display>
+            <template translate="label">
+                <label>Frontend Template</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <values>
+                    <text translate="label">
+                        <value>veles_recentlysold/grid.phtml</value>
+                        <label>Grid View</label>
+                    </text>
+                    <icons translate="label">
+                        <value>veles_recentlysold/list.phtml</value>
+                        <label>List View</label>
+                    </icons>
+                </values>
+            </template>
+        </parameters>
+    </veles_widget_recentlysold>
+</widgets>
