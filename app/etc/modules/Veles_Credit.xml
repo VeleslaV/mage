@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Veles_Credit>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Sales/>
+                <Mage_Checkout/>
+            </depends>
+        </Veles_Credit>
+    </modules>
+</config>
