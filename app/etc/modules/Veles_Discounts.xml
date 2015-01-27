@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Veles_Discount>
+        <Veles_Discounts>
             <active>true</active>
             <codePool>local</codePool>
             <depends>
                 <Mage_Sales/>
                 <Mage_Checkout/>
             </depends>
-        </Veles_Discount>
+        </Veles_Discounts>
     </modules>
 </config>

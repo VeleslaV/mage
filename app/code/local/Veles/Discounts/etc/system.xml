@@ -1,0 +1,60 @@
+<config>
+    <tabs>
+        <discounts_config translate="label" module="veles_discounts">
+            <label>Discount 4 Order Config</label>
+            <sort_order>99999</sort_order>
+        </discounts_config>
+    </tabs>
+    <sections>
+        <discounts_options translate="label" module="veles_discounts">
+            <label>Discount 4 Order Config Options</label>
+            <tab>discounts_config</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <rules translate="label">
+                    <label>Discount 4 Order</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>veles_discounts/your_block</frontend_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <discount_method_rule>
+                            <label>New discount level</label>
+                            <comment>What determines new levels of discounts</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>veles_discounts/discountRules</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </discount_method_rule>
+                        <discount_test_option>
+                            <label>Discount Test Option</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><discount_method_rule>for_quantity</discount_method_rule></depends>
+                        </discount_test_option>
+                        <discount_second_test_option>
+                            <label>Discount Second Test Option</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><discount_method_rule>for_total_value</discount_method_rule></depends>
+                        </discount_second_test_option>
+                    </fields>
+                </rules>
+            </groups>
+        </discounts_options>
+    </sections>
+</config>
