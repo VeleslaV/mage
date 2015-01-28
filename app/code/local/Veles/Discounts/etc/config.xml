@@ -10,6 +10,11 @@
             <veles_discounts>
                 <class>Veles_Discounts_Block</class>
             </veles_discounts>
+            <veles_discounts>
+                <rewrite>
+                    <coupon>Veles_Discounts_Block_Checkout_Cart_Coupon</coupon>
+                </rewrite>
+            </veles_discounts>
         </blocks>
         <helpers>
             <veles_discounts>
@@ -27,9 +32,6 @@
                     <veles_customers_discounts_table>
                         <table>veles_discounts_items</table>
                     </veles_customers_discounts_table>
-                    <veles_discounts_levels_table>
-                        <table>veles_discounts_levels</table>
-                    </veles_discounts_levels_table>
                 </entities>
             </veles_discounts_resource>
         </models>
@@ -44,17 +46,30 @@
             </velesdiscounts_setup>
         </resources>
     </global>
+    <frontend>
+        <layout>
+            <updates>
+                <veles_discounts>
+                    <file>veles_discounts.xml</file>
+                </veles_discounts>
+            </updates>
+        </layout>
+        <routers>
+            <veles_discounts>
+                <use>standard</use>
+                <args>
+                    <module>Veles_Discounts</module>
+                    <frontName>discounts</frontName>
+                </args>
+            </veles_discounts>
+        </routers>
+    </frontend>
     <adminhtml>
         <menu>
             <veles_discounts module="veles_discounts">
                 <title>Discounts 4 Order</title>
                 <sort_order>77</sort_order>
                 <children>
-                    <discounts_levels translate="title" module="veles_discounts">
-                        <title>Discounts Levels</title>
-                        <sort_order>10</sort_order>
-                        <action>veles_discounts_admin/adminhtml_level</action>
-                    </discounts_levels>
                     <customers_discounts translate="title" module="veles_discounts">
                         <title>Customers Discounts</title>
                         <sort_order>20</sort_order>
@@ -72,7 +87,7 @@
                                 <config>
                                     <children>
                                         <discounts_options>
-                                            <title>Discounts 4 Order Module Section</title>
+                                            <title>Discounts 4 Order Section</title>
                                         </discounts_options>
                                     </children>
                                 </config>

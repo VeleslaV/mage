@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_cart_index>
+        <reference name="checkout.cart.coupon">
+            <block type="veles_discounts/checkout_cart_coupon" name="veles_discounts_coupon_field" template="veles_discounts/checkout/cart/coupon.phtml" />
+        </reference>
+    </checkout_cart_index>
+</layout>

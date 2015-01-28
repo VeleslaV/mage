@@ -3,7 +3,6 @@
 
     /* Module table initialization */
     $discountsTable = $installer->getTable('veles_discounts/veles_customers_discounts_table');
-    $levelsTable = $installer->getTable('veles_discounts/veles_discounts_levels_table');
 
     /* Customer discounts table setup */
     $installer->startSetup();
@@ -24,6 +23,16 @@
             'default'  => '0',
             'nullable'  => true,
         ))
+        ->addColumn('customer_orders_quantity', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'comment'   => 'Customer Orders Quantity',
+            'default'  => '0',
+            'nullable'  => true,
+        ))
+        ->addColumn('customer_orders_value', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'comment'   => 'Customer Orders Total Value',
+            'default'  => '0',
+            'nullable'  => true,
+        ))
         ->addColumn('customer_discount_coupon', Varien_Db_Ddl_Table::TYPE_TEXT, '255', array(
             'comment'   => 'Costumer Discount Coupon',
             'nullable'  => true,
@@ -34,23 +43,9 @@
     $newData = Mage::getModel('veles_discounts/discount');
     $newData->setCustomerId(140);
     $newData->setDiscountLevel(3);
+    $newData->setCustomerOrdersQuantity(4);
+    $newData->setCustomerOrdersValue(222);
     $newData->setCustomerDiscountCoupon("F98SDF7S9D8F");
     $newData->save();
-
-    /* Discounts levels table setup */
-    $installer->startSetup();
-    $installer->getConnection()->dropTable($levelsTable);
-    $lTable = $installer->getConnection()
-        ->newTable($levelsTable)
-        ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'identity'  => true,
-            'nullable'  => false,
-            'primary'   => true,
-        ))
-        ->addColumn('level', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'comment'   => 'Level',
-            'nullable'  => false,
-        ));
-    $installer->getConnection()->createTable($lTable);
 
     $installer->endSetup();
