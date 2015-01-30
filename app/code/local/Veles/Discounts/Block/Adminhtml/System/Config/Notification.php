@@ -8,9 +8,9 @@
             $html = "
                 <pre>".print_r($helper->getDiscountMethod(), true)."</pre>
                 <hr />
-                <pre>".print_r($helper->getDiscountForQuantityOptions(), true)."</pre>
+                <pre>".print_r($helper->getDiscountForQuantityData(), true)."</pre>
                 <hr />
-                <pre>".print_r($helper->getDiscountForTotalOptions(), true)."</pre>
+                <pre>".print_r($helper->getDiscountForTotalData(), true)."</pre>
             ";
 
             return $html;

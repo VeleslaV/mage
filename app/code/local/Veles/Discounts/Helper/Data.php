@@ -8,19 +8,49 @@
             return $resultOption;
         }
 
-        public function getDiscountForQuantityOptions()
+        public function getDiscountForQuantityData()
         {
             $serializedOptions = Mage::getStoreConfig('discounts_options/rules/levels_for_quantity');
             $optionsForQuantityArray = unserialize($serializedOptions);
 
-            return $optionsForQuantityArray;
+            $rebuiltArray = $this->arrayRebuild($optionsForQuantityArray);
+
+            return $rebuiltArray;
         }
 
-        public function getDiscountForTotalOptions()
+        public function getDiscountForTotalData()
         {
             $serializedOptions = Mage::getStoreConfig('discounts_options/rules/levels_for_total');
             $optionsForTotalArray = unserialize($serializedOptions);
 
-            return $optionsForTotalArray;
+            $rebuiltArray = $this->arrayRebuild($optionsForTotalArray);
+
+            return $rebuiltArray;
+        }
+
+        public function getDiscountAmount($price, $discount_percent)
+        {
+            $discount_amount = (($price / 100) * $discount_percent) * -1;
+
+            return $discount_amount;
+        }
+
+        public function arrayRebuild($array)
+        {
+            $resultArray = array();
+            $rebuiltArray = array();
+
+            foreach($array as $optionKey => $optionValue){
+                $rebuiltArray[$optionKey] = array_filter($optionValue);
+            }
+
+            foreach($rebuiltArray['level_id'] as $rebuiltValue){
+                $resultArray[$rebuiltValue]['level_id'] = $rebuiltArray['level_id'][$rebuiltValue];
+                $resultArray[$rebuiltValue]['level_title'] = $rebuiltArray['level_title'][$rebuiltValue];
+                $resultArray[$rebuiltValue]['level_activate_on'] = $rebuiltArray['level_activate_on'][$rebuiltValue];
+                $resultArray[$rebuiltValue]['level_discount'] = $rebuiltArray['level_discount'][$rebuiltValue];
+            }
+
+            return $resultArray;
         }
     }

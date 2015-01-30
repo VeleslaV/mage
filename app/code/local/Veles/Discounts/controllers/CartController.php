@@ -5,44 +5,61 @@
     {
         public function couponPostAction()
         {
-            echo $this->getRequest()->getParam('coupon_code');
+            $helper = Mage::helper('veles_discounts');
+            $quote = Mage::getSingleton('checkout/cart')->getQuote();
+            $customerData = Mage::getSingleton('customer/session')->getCustomer();
+            $discountModel = Mage::getModel('veles_discounts/discount')->load($customerData->getId());
 
-//            $creditCode = round($this->getRequest()->getParam('credit_code'), 2);
-//            if ($this->getRequest()->getParam('remove') == 1) {
-//                $creditCode = 0;
-//            }
-//
-//            try {
-//                $quote = Mage::getSingleton('checkout/cart')->getQuote();
-//                $quote->setCreditAmount($creditCode);
-//                $quote->setBaseCreditAmount($creditCode);
-//                $quote->save();
-//
-//                if (Veles_Credit_Model_Credit::canApply()) {
-//                    if($creditCode > 0) {
-//                        $this->_getSession()->addSuccess(
-//                            $this->__('Your bonuses was applied.', Mage::helper('core')->escapeHtml($creditCode))
-//                        );
-//                    }else{
-//                        $this->_getSession()->addSuccess($this->__('Your bonuses was canceled.'));
-//                    }
-//                }else{
-//                    $quote->setCreditAmount(0);
-//                    $quote->setBaseCreditAmount(0);
-//                    $quote->save();
-//
-//                    $this->_getSession()->addError(
-//                        $this->__('You cannot use this amount of bonuses!', Mage::helper('core')->escapeHtml($creditCode))
-//                    );
-//                }
-//
-//            } catch (Exception $e) {
-//
-//                $this->_getSession()->addError($this->__('Cannot apply bonuses.'));
-//                Mage::logException($e);
-//            }
+            /* No reason continue with empty shopping cart */
+            if (!$this->_getCart()->getQuote()->getItemsCount()) {
+                $this->_goBack();
+                return;
+            }
+            $couponCode = (string) $this->getRequest()->getParam('coupon_code');
 
+            if ($this->getRequest()->getParam('remove') == 1) {
+                $couponCode = '';
+                $customer_discount_percent = 0;
+                $customer_discount_amount = 0;
+            }else{
+                $customer_discount_percent = $discountModel->getCustomerDiscountPercent();
+                $customer_discount_amount = $helper->getDiscountAmount($quote->getSubtotal(), $customer_discount_percent);
+            }
+            $oldCouponCode = $quote->getVdCouponCode();
 
-//            $this->_goBack();
+            if (!strlen($couponCode) && !strlen($oldCouponCode)) {
+                $this->_goBack();
+                return;
+            }
+
+            try {
+                $codeLength = strlen($couponCode);
+
+                $quote->setCouponCode($couponCode);
+                $quote->setVdCouponCode($couponCode);
+                $quote->setVdDiscountPercent($customer_discount_percent);
+                $quote->setVdDiscountAmount($customer_discount_amount);
+                $quote->setBaseVdDiscountAmount($customer_discount_amount);
+                $quote->save();
+
+                if($codeLength) {
+                    if ($couponCode == $discountModel->getCustomerDiscountCoupon()) {
+                        $this->_getSession()->addSuccess(
+                            $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
+                        );
+                    } else {
+                         $this->_getSession()->addError(
+                            $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                        );
+                    }
+                } else {
+                    $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
+                }
+            } catch (Exception $e) {
+                $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
+                Mage::logException($e);
+            }
+
+            $this->_goBack();
         }
     }

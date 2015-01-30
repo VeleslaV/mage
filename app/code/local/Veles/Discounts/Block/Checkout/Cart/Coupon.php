@@ -3,7 +3,7 @@
     {
         protected function _toHtml()
         {
-            $couponMess = $this->__("Apply");
+            $couponMess = $this->__("Apply coupon");
             $this->setCouponMess($couponMess);
 
             return parent::_toHtml();

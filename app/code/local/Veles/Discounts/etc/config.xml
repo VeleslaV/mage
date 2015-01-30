@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Veles_Discounts>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Veles_Discounts>
     </modules>
     <global>
@@ -45,6 +45,49 @@
                 </connection>
             </velesdiscounts_setup>
         </resources>
+        <events>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <sales_order_invoice_save_after>
+                        <class>veles_discounts/observer</class>
+                        <method>invoiceSaveAfter</method>
+                    </sales_order_invoice_save_after>
+                </observers>
+            </sales_order_invoice_save_after>
+            <sales_order_creditmemo_save_after>
+                <observers>
+                    <sales_order_creditmemo_save_after>
+                        <class>veles_discounts/observer</class>
+                        <method>creditmemoSaveAfter</method>
+                    </sales_order_creditmemo_save_after>
+                </observers>
+            </sales_order_creditmemo_save_after>
+        </events>
+        <sales>
+            <quote>
+                <totals>
+                    <discount>
+                        <class>veles_discounts/sales_quote_address_total_discount</class>
+                        <renderer>veles_discounts/checkout_totals_discount</renderer>
+                        <admin_renderer>veles_discounts/adminhtml_sales_order_create_totals_discount</admin_renderer>
+                    </discount>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <discount>
+                        <class>veles_discounts/sales_order_total_invoice_discount</class>
+                    </discount>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <discount>
+                        <class>veles_discounts/sales_order_total_creditmemo_discount</class>
+                    </discount>
+                </totals>
+            </order_creditmemo>
+        </sales>
     </global>
     <frontend>
         <layout>
@@ -65,6 +108,13 @@
         </routers>
     </frontend>
     <adminhtml>
+        <layout>
+            <updates>
+                <veles_discounts>
+                    <file>veles_discounts.xml</file>
+                </veles_discounts>
+            </updates>
+        </layout>
         <menu>
             <veles_discounts module="veles_discounts">
                 <title>Discounts 4 Order</title>
