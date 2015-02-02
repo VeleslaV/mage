@@ -59,25 +59,6 @@
                         </levels_for_total>
                     </fields>
                 </rules>
-                <debug translate="label">
-                    <label>Debug</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>2</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <discount_debug>
-                            <label>Debug</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <frontend_model>veles_discounts/adminhtml_system_config_notification</frontend_model>
-                        </discount_debug>
-                    </fields>
-                </debug>
             </groups>
         </discounts_options>
     </sections>
