@@ -12,7 +12,7 @@
             if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customerData = Mage::getSingleton('customer/session')->getCustomer();
                 $costumerDiscountData = Mage::getModel('veles_discounts/discount')->load($customerData->getId());
-                $customerDiscountLevel = $costumerDiscountData->getData('discount_level');
+                $customerDiscountLevel = $this->getDiscountLevel();
                 $customerDiscount = $this->getDiscountPercentByLevel($customerDiscountLevel);
             }else{
                 $customerDiscount = 0;
@@ -45,10 +45,50 @@
             return $resultDiscountPercent;
         }
 
+        public function getDiscountLevel()
+        {
+            $customerDiscountLevel = 0;
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                $customerId = $customerData->getId();
+
+                $costumerDiscountData = Mage::getModel('veles_discounts/discount')->load($customerId);
+                $helper = Mage::helper('veles_discounts');
+                $discountMethod = $helper->getDiscountMethod();
+
+                if($discountMethod == "for_quantity"){
+                    $discountData = $helper->getDiscountForQuantityData();
+                    $condition = $costumerDiscountData->getCustomerOrdersQuantity();
+                }else{
+                    $discountData = $helper->getDiscountForTotalData();
+                    $condition = $costumerDiscountData->getCustomerOrdersValue();
+                }
+
+                arsort($discountData);
+                foreach($discountData as $discountDataValue){
+                    if($condition >= $discountDataValue['level_activate_on']){
+                        $customerDiscountLevel = $discountDataValue['level_id'];
+                        break;
+                    }
+                }
+            }
+//            echo "<pre>".print_r($discountData, true)."</pre>";
+
+            return $customerDiscountLevel;
+        }
+
         public function canApply()
         {
-            if(1 == 1){
-                $applyResult = true;
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                $costumerDiscountData = Mage::getModel('veles_discounts/discount')->load($customerData->getId());
+                $discountCoupon = $costumerDiscountData->getData('customer_discount_coupon');
+
+                if(empty($discountCoupon)){
+                    $applyResult = false;
+                }else{
+                    $applyResult = true;
+                }
             }else{
                 $applyResult = false;
             }

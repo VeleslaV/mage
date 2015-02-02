@@ -46,6 +46,14 @@
             </velesdiscounts_setup>
         </resources>
         <events>
+            <sales_order_place_after>
+                <observers>
+                    <sales_order_place_after>
+                        <class>veles_discounts/observer</class>
+                        <method>orderPlaceAfter</method>
+                    </sales_order_place_after>
+                </observers>
+            </sales_order_place_after>
             <sales_order_invoice_save_after>
                 <observers>
                     <sales_order_invoice_save_after>
@@ -88,6 +96,15 @@
                 </totals>
             </order_creditmemo>
         </sales>
+        <template>
+            <email>
+                <discount_level_email>
+                    <label>Discount Level Email</label>
+                    <file>discount_level_email.html</file>
+                    <type>html</type>
+                </discount_level_email>
+            </email>
+        </template>
     </global>
     <frontend>
         <layout>
@@ -159,4 +176,11 @@
             </veles_discounts_admin>
         </routers>
     </admin>
+    <default>
+        <simple>
+            <send_email>
+                <template>discount_level_email</template>
+            </send_email>
+        </simple>
+    </default>
 </config>

@@ -3,31 +3,31 @@
     {
         public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
         {
-//            $order = $creditmemo->getOrder();
-//
-//            if($order->getCreditAmountInvoiced() > 0) {
-//
-//                $creditAmountLeft = $order->getCreditAmountInvoiced() - $order->getCreditAmountRefunded();
-//                $baseCreditAmountLeft = $order->getBaseCreditAmountInvoiced() - $order->getBaseCreditAmountRefunded();
-//
-//                if ($baseCreditAmountLeft > 0) {
-//                    $creditmemo->setGrandTotal($creditmemo->getGrandTotal() - $creditAmountLeft);
-//                    $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() - $baseCreditAmountLeft);
-//                    $creditmemo->setCreditAmount($creditAmountLeft);
-//                    $creditmemo->setBaseCreditAmount($baseCreditAmountLeft);
-//                }
-//
-//            } else {
-//
-//                $creditAmount = $order->getCreditAmountInvoiced();
-//                $baseCreditAmount = $order->getBaseCreditAmountInvoiced();
-//
-//                $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $creditAmount);
-//                $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseCreditAmount);
-//                $creditmemo->setCreditAmount($creditAmount);
-//                $creditmemo->setBaseCreditAmount($baseCreditAmount);
-//
-//            }
+            $order = $creditmemo->getOrder();
+
+            if(abs($order->getDiscountInvoiced()) > 0) {
+
+                $discountAmountLeft = $order->getDiscountInvoiced() - $order->getDiscountRefunded();
+                $baseDiscountAmountLeft = $order->getBaseDiscountInvoiced() - $order->getBaseDiscountRefunded();
+
+                if (abs($baseDiscountAmountLeft) > 0) {
+                    $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $discountAmountLeft);
+                    $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseDiscountAmountLeft);
+                    $creditmemo->setDiscountAmount($discountAmountLeft);
+                    $creditmemo->setBaseDiscountAmount($baseDiscountAmountLeft);
+                }
+
+            } else {
+
+                $discountAmount = $order->getDiscountInvoiced();
+                $baseDiscountAmount = $order->getBaseDiscountInvoiced();
+
+                $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $discountAmount);
+                $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseDiscountAmount);
+                $creditmemo->setDiscountAmount($discountAmount);
+                $creditmemo->setBaseDiscountAmount($baseDiscountAmount);
+
+            }
 
             return $this;
         }

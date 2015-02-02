@@ -24,10 +24,15 @@
                 'required' => true,
                 'name' => 'customer_id',
             ));
-            $fieldset->addField('discount_level', 'text', array(
-                'label' => $helper->__('Customer Discount Level'),
+            $fieldset->addField('customer_orders_quantity', 'text', array(
+                'label' => $helper->__('Customer Orders Quantity'),
                 'required' => true,
-                'name' => 'discount_level',
+                'name' => 'customer_orders_quantity',
+            ));
+            $fieldset->addField('customer_orders_value', 'text', array(
+                'label' => $helper->__('Customer Orders Value'),
+                'required' => true,
+                'name' => 'customer_orders_value',
             ));
             $fieldset->addField('customer_discount_coupon', 'text', array(
                 'label' => $helper->__('Customer Discount Coupon'),

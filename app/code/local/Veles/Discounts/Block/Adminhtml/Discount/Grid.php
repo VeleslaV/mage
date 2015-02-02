@@ -35,9 +35,15 @@
 
             ));
 
-            $this->addColumn('discount_level', array(
-                'header' => $helper->__('Customer Discount Level'),
-                'index' => 'discount_level',
+            $this->addColumn('customer_orders_quantity', array(
+                'header' => $helper->__('Customer Orders Quantity'),
+                'index' => 'customer_orders_quantity',
+                'type' => 'text',
+            ));
+
+            $this->addColumn('customer_orders_value', array(
+                'header' => $helper->__('Customer Orders Value'),
+                'index' => 'customer_orders_value',
                 'type' => 'text',
             ));
 

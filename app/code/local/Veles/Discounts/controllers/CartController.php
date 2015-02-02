@@ -3,6 +3,27 @@
 
     class Veles_Discounts_CartController extends Mage_Checkout_CartController
     {
+        const XML_PATH_SIMPLE_EMAIL_TEMPLATE = 'simple/send_email/template';
+
+        public function testMailAction()
+        {
+            $templateId = Mage::getStoreConfig(self::XML_PATH_SIMPLE_EMAIL_TEMPLATE);
+            $sender = array(
+                'name' => 'MageStore',
+                'email' => 'robot@mage.loc'
+            );
+
+            $email = "veleslav.ck@gmail.com";
+            $emailName = 'Email Notification';
+            $vars = array(
+                "account_link"=>"asdasd asda sdasd",
+                "coupone_code"=>"dsfsdf"
+            );
+            $storeId = Mage::app()->getStore()->getId();
+            Mage::getModel('core/email_template')->sendTransactional($templateId, $sender, $email, $emailName, $vars, $storeId);
+
+        }
+
         public function couponPostAction()
         {
             $helper = Mage::helper('veles_discounts');
@@ -48,7 +69,12 @@
                             $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
                         );
                     } else {
-                         $this->_getSession()->addError(
+                        $quote->setVdDiscountPercent(0);
+                        $quote->setVdDiscountAmount(0);
+                        $quote->setBaseVdDiscountAmount(0);
+                        $quote->save();
+
+                        $this->_getSession()->addError(
                             $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
                         );
                     }

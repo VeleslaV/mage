@@ -18,17 +18,12 @@
             'comment'   => 'Customer Id',
             'nullable'  => false,
         ))
-        ->addColumn('discount_level', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'comment'   => 'Costumer Discount Level',
-            'default'  => '0',
-            'nullable'  => true,
-        ))
         ->addColumn('customer_orders_quantity', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'comment'   => 'Customer Orders Quantity',
             'default'  => '0',
             'nullable'  => true,
         ))
-        ->addColumn('customer_orders_value', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        ->addColumn('customer_orders_value', Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', array(
             'comment'   => 'Customer Orders Total Value',
             'default'  => '0',
             'nullable'  => true,
@@ -42,7 +37,6 @@
     /* Customer discounts table fixtures */
     $newData = Mage::getModel('veles_discounts/discount');
     $newData->setCustomerId(140);
-    $newData->setDiscountLevel(3);
     $newData->setCustomerOrdersQuantity(4);
     $newData->setCustomerOrdersValue(222);
     $newData->setCustomerDiscountCoupon("F98SDF7S9D8F");
