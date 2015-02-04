@@ -1,6 +1,8 @@
 <?php
     class Veles_Discounts_Helper_Data extends Mage_Core_Helper_Abstract
     {
+        const XML_PATH_SIMPLE_EMAIL_TEMPLATE = 'simple/send_email/template';
+
         public function getDiscountMethod()
         {
             $resultOption = Mage::getStoreConfig('discounts_options/rules/discount_method_rule');
@@ -52,5 +54,28 @@
             }
 
             return $resultArray;
+        }
+
+        public function sendEmailNotification($customerEmail, $couponeCode)
+        {
+            $templateId = Mage::getStoreConfig(self::XML_PATH_SIMPLE_EMAIL_TEMPLATE);
+
+            $sender = array(
+                'name' => 'MageStore',
+                'email' => 'robot@mage.loc'
+            );
+
+            $email = "veleslav.ck@gmail.com";
+//            $email = $customerEmail;
+            $emailSubject = 'New Discount Level Notification';
+
+            $customerAccountViewUrl = Mage::getUrl('customer/account/index');
+            $vars = array(
+                "account_link"=>"".$customerAccountViewUrl."",
+                "coupone_code"=>"".$couponeCode.""
+            );
+            $storeId = Mage::app()->getStore()->getId();
+            Mage::getModel('core/email_template')->sendTransactional($templateId, $sender, $email, $emailSubject, $vars, $storeId);
+
         }
     }

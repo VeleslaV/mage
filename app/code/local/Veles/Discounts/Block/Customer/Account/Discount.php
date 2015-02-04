@@ -3,8 +3,16 @@
     {
         protected function _toHtml()
         {
-            $customerDiscountPercent = Mage::getModel('veles_discounts/discount')->getCustomerDiscountPercent();
+            $customerData = Mage::getSingleton('customer/session')->getCustomer();
+            $discountModel = Mage::getModel('veles_discounts/discount')->load($customerData->getId());
+            $customerDiscountPercent = $discountModel->getCustomerDiscountPercent();
+            $customerDiscountLevel = $discountModel->getCustomerDiscountLevel();
+            $customerCouponeCode = $discountModel->getCustomerDiscountCoupon();
+
+
             $this->setCustomerDiscount($customerDiscountPercent);
+            $this->setCouponCode($customerCouponeCode);
+            $this->setDiscountLevel($customerDiscountLevel);
 
             return parent::_toHtml();
         }

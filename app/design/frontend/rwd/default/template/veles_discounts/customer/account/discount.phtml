@@ -5,7 +5,13 @@
             <div class="box">
                 <div class="box-content">
                     <p style="width: 150px;">
-                        <strong>Your discount:</strong> <?=$this->getCustomerDiscount();?> %
+                        <strong><?=$this->__('Your level');?>: </strong> <?=$this->getDiscountLevel();?>
+                    </p>
+                    <p style="width: 150px;">
+                        <strong><?=$this->__('Your discount');?>: </strong> <?=$this->getCustomerDiscount();?>%
+                    </p>
+                    <p style="width: 150px;">
+                        <strong><?=$this->__('Your Coupon Code');?>: </strong> <?=$this->getCouponCode();?>
                     </p>
                 </div>
             </div>
