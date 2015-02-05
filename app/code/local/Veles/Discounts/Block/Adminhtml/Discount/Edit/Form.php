@@ -9,20 +9,22 @@
             $form = new Varien_Data_Form(array(
                 'id' => 'edit_form',
                 'action' => $this->getUrl('*/*/save', array(
-                        'id' => $this->getRequest()->getParam('id')
+                        'customer_id' => $this->getRequest()->getParam('customer_id')
                     )),
                 'method' => 'post',
                 'enctype' => 'multipart/form-data'
             ));
+            echo $this->getRequest()->getParam('customer_id');
 
             $this->setForm($form);
 
             $fieldset = $form->addFieldset('customer_form', array('legend' => $helper->__('Customer Discount Information')));
 
-            $fieldset->addField('customer_id', 'text', array(
+            $fieldset->addField('customer_id', 'select', array(
                 'label' => $helper->__('Customer Id'),
-                'required' => true,
                 'name' => 'customer_id',
+                'values' => $helper->getCustomersList(),
+                'required' => true,
             ));
             $fieldset->addField('customer_orders_quantity', 'text', array(
                 'label' => $helper->__('Customer Orders Quantity'),
@@ -33,11 +35,6 @@
                 'label' => $helper->__('Customer Orders Value'),
                 'required' => true,
                 'name' => 'customer_orders_value',
-            ));
-            $fieldset->addField('customer_discount_coupon', 'text', array(
-                'label' => $helper->__('Customer Discount Coupon'),
-                'required' => true,
-                'name' => 'customer_discount_coupon',
             ));
 
             $form->setUseContainer(true);

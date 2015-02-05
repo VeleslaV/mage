@@ -34,12 +34,4 @@
         ));
     $installer->getConnection()->createTable($dTable);
 
-    /* Customer discounts table fixtures */
-    $newData = Mage::getModel('veles_discounts/discount');
-    $newData->setCustomerId(140);
-    $newData->setCustomerOrdersQuantity(4);
-    $newData->setCustomerOrdersValue(222);
-    $newData->setCustomerDiscountCoupon("F98SDF7S9D8F");
-    $newData->save();
-
     $installer->endSetup();

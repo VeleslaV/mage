@@ -16,15 +16,22 @@
                 return $this;
             }
 
-            if($discountModel->canApply()) {
-                $quote = Mage::getSingleton('checkout/cart')->getQuote();
-                $discountAmount = $quote->getVdDiscountAmount();
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                $customerId = $customerData->getId();
 
-                $address->setDiscountAmount($discountAmount);
-                $address->setBaseDiscountAmount($discountAmount);
+                if($discountModel->canApply($customerId)) {
+                    $helper = Mage::helper('veles_discounts');
 
-                $address->setGrandTotal($address->getGrandTotal() + $discountAmount);
-                $address->setBaseGrandTotal($address->getBaseGrandTotal() + $discountAmount);
+                    $discountPercent = $discountModel->getCustomerDiscountPercent($customerId);
+                    $discountAmount = $helper->getDiscountAmount($address->getSubtotal(), $discountPercent);
+
+                    $address->setDiscountAmount($discountAmount);
+                    $address->setBaseDiscountAmount($discountAmount);
+
+                    $address->setGrandTotal($address->getGrandTotal() + $discountAmount);
+                    $address->setBaseGrandTotal($address->getBaseGrandTotal() + $discountAmount);
+                }
             }
 
             return $this;

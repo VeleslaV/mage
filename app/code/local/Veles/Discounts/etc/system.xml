@@ -36,8 +36,8 @@
                         <levels_for_quantity>
                             <label>Discount levels for quantity</label>
                             <frontend_type>text</frontend_type>
-                            <frontend_model>veles_discounts/adminhtml_system_config_levels</frontend_model>
-                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <frontend_model>veles_discounts/adminhtml_system_config_levelsForQuantity</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -48,8 +48,8 @@
                         <levels_for_total>
                             <label>Discount levels for total value</label>
                             <frontend_type>text</frontend_type>
-                            <frontend_model>veles_discounts/adminhtml_system_config_levels</frontend_model>
-                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <frontend_model>veles_discounts/adminhtml_system_config_levelsForTotalValue</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

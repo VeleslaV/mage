@@ -29,12 +29,9 @@
                 try {
                     $model = Mage::getModel('veles_discounts/discount');
                     $model->setData($data)->setCustomerId($this->getRequest()->getParam('customer_id'));
-    //                $model->setDiscountLevel(222);
-    //                $model->setCustomerDiscountCoupon(33);
+
                     $model->save();
 
-    //                echo"<pre>".print_r($model->getDiscountCoupon(), true)."<pre>";
-    //                die();
                     Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Customer discount data was saved successfully'));
                     Mage::getSingleton('adminhtml/session')->setFormData(false);
                     $this->_redirect('*/*/');
@@ -42,9 +39,10 @@
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                     Mage::getSingleton('adminhtml/session')->setFormData($data);
                     $this->_redirect('*/*/edit', array(
-                        'id' => $this->getRequest()->getParam('id')
+                        'customer_id' => $this->getRequest()->getParam('customer_id')
                     ));
                 }
+
                 return;
             }
             Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find item to save'));
@@ -53,7 +51,7 @@
 
         public function deleteAction()
         {
-            if ($id = $this->getRequest()->getParam('customer_id')) {
+            if ($id = $this->getRequeParam('customer_id')) {
                 try {
                     Mage::getModel('veles_discounts/discount')->setId($id)->delete();
                     Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Line was deleted successfully'));

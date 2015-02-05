@@ -26,41 +26,24 @@
             $orderCustomerEmail = $order->getData("customer_email");
 
             $discountModel = Mage::getModel('veles_discounts/discount')->load($orderCustomerId);
-
-            $customerOrdersResultQuantity = $discountModel->getCustomerOrdersQuantity() + 1;                        /* customer new quantity of all orders */
-            $customerOrdersResultValue = $discountModel->getCustomerOrdersValue() + $order->getBaseGrandTotal();    /* customer new total value of all orders */
-
             $helper = Mage::helper('veles_discounts');
-            $discountMethod = $helper->getDiscountMethod();
 
-            if($discountMethod == "for_quantity"){
-                $discountData = $helper->getDiscountForQuantityData();
-                $newLevelCheckValue = $customerOrdersResultQuantity;                   /* value for check advance to the new level, depending on the rules */
-                $currentLevelCheckValue = $discountModel->getCustomerOrdersQuantity();  /* value for check current discount level */
-            }else{
-                $discountData = $helper->getDiscountForTotalData();
-                $newLevelCheckValue = $customerOrdersResultValue;                      /* value for check advance to the new level, depending on the rules */
-                $currentLevelCheckValue = $discountModel->getCustomerOrdersValue();     /* value for check current discount level */
+            $ordersResultQuantity = $discountModel->getCustomerOrdersQuantity() + 1;                                    /* customer new quantity of all orders */
+            $ordersResultValue = $discountModel->getCustomerOrdersValue() + $invoice->getBaseGrandTotal();              /* customer new total value of all orders */
+
+            $newLevelCondition = $helper->getDiscountConditionValue($ordersResultQuantity, $ordersResultValue);
+            $currentLevelCondition = $helper->getDiscountConditionValue($discountModel->getCustomerOrdersQuantity(), $discountModel->getCustomerOrdersValue());
+            $discountData = $helper->getCurrentDiscountData();
+
+            $customerLevel = $helper->getDiscountLevelByAmount($currentLevelCondition);
+            $customerNewLevel = $helper->getDiscountLevelByAmount($newLevelCondition);
+
+            if(($customerLevel !== $customerNewLevel) AND (isset($discountData[$customerNewLevel]))){                   /* if isset new level */
+                $helper->sendEmailNotification($orderCustomerEmail);                                                    /* send a letter about new level */
             }
 
-            $customerDiscountLevel = $discountModel->getDiscountLevelByAmount($currentLevelCheckValue);
-            $customerDiscountNewLevel = $discountModel->getDiscountLevelByAmount($newLevelCheckValue);
-
-            if(($customerDiscountLevel !== $customerDiscountNewLevel) AND (isset($discountData[$customerDiscountNewLevel]))){                                       /* if isset next level */
-                /* customer have new level. generate new coupon code and send an email.  */
-
-                $newCouponCode = $orderCustomerId."+".$orderCustomerEmail."+".time()."+5ALT";
-                $newCouponCode = md5($newCouponCode);
-                $newCouponCode = strtoupper($newCouponCode);
-                $newCouponCode = substr($newCouponCode, 0, 15);
-
-                $discountModel->setCustomerDiscountCoupon($newCouponCode);              /* set new customer coupon */
-
-                $helper->sendEmailNotification($orderCustomerEmail, $newCouponCode);    /* send a letter about new level */
-            }
-
-            $discountModel->setCustomerOrdersQuantity($customerOrdersResultQuantity);
-            $discountModel->setCustomerOrdersValue($customerOrdersResultValue);
+            $discountModel->setCustomerOrdersQuantity($ordersResultQuantity);
+            $discountModel->setCustomerOrdersValue($ordersResultValue);
             $discountModel->save();
 
             return $this;
@@ -76,38 +59,22 @@
             $discountModel = Mage::getModel('veles_discounts/discount')->load($orderCustomerId);
             $helper = Mage::helper('veles_discounts');
 
-            $customerOrdersResultQuantity = $discountModel->getCustomerOrdersQuantity() - 1;                        /* customer new quantity of all orders */
-            $customerOrdersResultValue = $discountModel->getCustomerOrdersValue() - $order->getBaseGrandTotal();    /* customer new total value of all orders */
+            $ordersResultQuantity = $discountModel->getCustomerOrdersQuantity() - 1;                                    /* customer new quantity of all orders */
+            $ordersResultValue = $discountModel->getCustomerOrdersValue() - $creditmemo->getBaseGrandTotal();           /* customer new total value of all orders */
 
-            $discountMethod = $helper->getDiscountMethod();
-            if($discountMethod == "for_quantity"){
-                $discountData = $helper->getDiscountForQuantityData();
-                $newLevelCheckValue = $customerOrdersResultQuantity;       /* value for check advance to the new level, depending on the rules */
-                $currentLevelCheckValue = $discountModel->getCustomerOrdersQuantity();
-            }else{
-                $discountData = $helper->getDiscountForTotalData();
-                $newLevelCheckValue = $customerOrdersResultValue;          /* value for check advance to the new level, depending on the rules */
-                $currentLevelCheckValue = $discountModel->getCustomerOrdersValue();
+            $newLevelCondition = $helper->getDiscountConditionValue($ordersResultQuantity, $ordersResultValue);
+            $currentLevelCondition = $helper->getDiscountConditionValue($discountModel->getCustomerOrdersQuantity(), $discountModel->getCustomerOrdersValue());
+            $discountData = $helper->getCurrentDiscountData();
+
+            $customerLevel = $helper->getDiscountLevelByAmount($currentLevelCondition);
+            $customerNewLevel = $helper->getDiscountLevelByAmount($newLevelCondition);
+
+            if(($customerLevel !== $customerNewLevel) AND (isset($discountData[$customerNewLevel]))){
+                $helper->sendEmailNotification($orderCustomerEmail);                                                    /* send a letter about new level */
             }
 
-            $customerDiscountLevel = $discountModel->getDiscountLevelByAmount($currentLevelCheckValue);
-            $customerDiscountNewLevel = $discountModel->getDiscountLevelByAmount($newLevelCheckValue);
-
-            if(($customerDiscountLevel !== $customerDiscountNewLevel) AND (isset($discountData[$customerDiscountNewLevel]))){                                           /* if activation rule for current level is false */
-                /* reduce customer level. generate new coupon code and send an email. */
-
-                $newCouponCode = $orderCustomerId."+".$orderCustomerEmail."+".time()."+5ALT";
-                $newCouponCode = md5($newCouponCode);
-                $newCouponCode = strtoupper($newCouponCode);
-                $newCouponCode = substr($newCouponCode, 0, 15);
-
-                $discountModel->setCustomerDiscountCoupon($newCouponCode);                          /* set new customer coupon */
-
-                $helper->sendEmailNotification($orderCustomerEmail, $newCouponCode);                /* send a letter about new level */
-            }
-
-            $discountModel->setCustomerOrdersQuantity($customerOrdersResultQuantity);
-            $discountModel->setCustomerOrdersValue($customerOrdersResultValue);
+            $discountModel->setCustomerOrdersQuantity($ordersResultQuantity);
+            $discountModel->setCustomerOrdersValue($ordersResultValue);
             $discountModel->save();
 
             return $this;

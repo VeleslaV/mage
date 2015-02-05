@@ -47,12 +47,6 @@
                 'type' => 'text',
             ));
 
-            $this->addColumn('customer_discount_coupon', array(
-                'header' => $helper->__('Customer Discount Coupon'),
-                'index' => 'customer_discount_coupon',
-                'type' => 'text',
-            ));
-
             return parent::_prepareColumns();
         }
 
