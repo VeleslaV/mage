@@ -210,7 +210,7 @@ deny from all
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /
+RewriteBase /veleslav/mage/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

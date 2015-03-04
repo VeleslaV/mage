@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<layout version="0.1.0">
-    <customer_account_index>
-        <reference name="left">
-            <block type="veles_discounts/customer_account_discount" name="customer.account.discount" template="veles_discounts/customer/account/discount.phtml"/>
-        </reference>
-    </customer_account_index>
-</layout>
