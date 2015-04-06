@@ -33,6 +33,9 @@
                     <veles_notifications_queue_table>
                         <table>veles_notifications_queue</table>
                     </veles_notifications_queue_table>
+                    <veles_notifications_user_products_table>
+                        <table>veles_notifications_user_products</table>
+                    </veles_notifications_user_products_table>
                 </entities>
             </veles_notifications_resource>
         </models>
@@ -47,14 +50,22 @@
             </velesnotifications_setup>
         </resources>
         <events>
-            <checkout_cart_product_add_after>
+            <checkout_cart_add_product_complete>
                 <observers>
-                    <checkout_cart_product_add_after>
+                    <checkout_cart_add_product_complete>
                         <class>veles_notifications/observer</class>
-                        <method>checkoutCartProductAddAfter</method>
-                    </checkout_cart_product_add_after>
+                        <method>checkoutCartAddProductComplete</method>
+                    </checkout_cart_add_product_complete>
                 </observers>
-            </checkout_cart_product_add_after>
+            </checkout_cart_add_product_complete>
+            <sales_order_place_after>
+                <observers>
+                    <sales_order_place_after>
+                        <class>veles_notifications/observer</class>
+                        <method>orderPlaceAfter</method>
+                    </sales_order_place_after>
+                </observers>
+            </sales_order_place_after>
             <sales_order_shipment_save_after>
                 <observers>
                     <sales_order_shipment_save_after>
@@ -63,14 +74,45 @@
                     </sales_order_shipment_save_after>
                 </observers>
             </sales_order_shipment_save_after>
+            <order_cancel_after>
+                <observers>
+                    <order_cancel_after>
+                        <class>veles_notifications/observer</class>
+                        <method>orderCancelAfter</method>
+                    </order_cancel_after>
+                </observers>
+            </order_cancel_after>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <sales_order_invoice_save_after>
+                        <class>veles_notifications/observer</class>
+                        <method>invoiceSaveAfter</method>
+                    </sales_order_invoice_save_after>
+                </observers>
+            </sales_order_invoice_save_after>
         </events>
         <template>
             <email>
-                <default_notification_email>
-                    <label>Default Notification Email</label>
-                    <file>default_notification_email.html</file>
+                <veles_notification_shipping_review_email translate="label" module="veles_notifications">
+                    <label>Veles Notifications: Review On Shipping Email</label>
+                    <file>veles_notification_review_on_shipping_email.html</file>
                     <type>html</type>
-                </default_notification_email>
+                </veles_notification_shipping_review_email>
+                <veles_notification_abandoned_cart_email translate="label" module="veles_notifications">
+                    <label>Veles Notifications: Abandoned Cart Email</label>
+                    <file>veles_notification_abandoned_cart_email.html</file>
+                    <type>html</type>
+                </veles_notification_abandoned_cart_email>
+                <veles_notification_discount_for_bought_email translate="label" module="veles_notifications">
+                    <label>Veles Notifications: Discount For Bought Email</label>
+                    <file>veles_notification_discount_for_bought_email.html</file>
+                    <type>html</type>
+                </veles_notification_discount_for_bought_email>
+                <veles_notification_default_email translate="label" module="veles_notifications">
+                    <label>Veles Notifications: Default Notification Email</label>
+                    <file>veles_notification_default_email.html</file>
+                    <type>html</type>
+                </veles_notification_default_email>
             </email>
         </template>
     </global>
@@ -109,6 +151,25 @@
                 </children>
             </veles_notifications>
         </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <veles_notifications_options>
+                                            <title>Module Settings Section</title>
+                                        </veles_notifications_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
     <admin>
         <routers>
@@ -128,7 +189,7 @@
                     <cron_expr>*/60 * * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>veles_notifications/queue::sendNotification</model>
+                    <model>veles_notifications/queue::sendNotificationCron</model>
                 </run>
             </veles_notifications_queue>
         </jobs>
@@ -136,7 +197,7 @@
     <default>
         <veles_notifications>
             <email>
-                <template>default_notification_email</template>
+                <email_template>veles_notification_default_email</email_template>
             </email>
         </veles_notifications>
     </default>

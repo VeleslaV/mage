@@ -7,4 +7,5 @@
             $this->_addContent($this->getLayout()->createBlock('veles_notifications/adminhtml_events'));
             $this->renderLayout();
         }
+
     }

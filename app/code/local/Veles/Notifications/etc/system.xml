@@ -1,0 +1,44 @@
+<config>
+    <tabs>
+        <veles_notifications_config translate="label" module="veles_notifications">
+            <label>Customer Notifications</label>
+            <sort_order>99999</sort_order>
+        </veles_notifications_config>
+    </tabs>
+    <sections>
+        <veles_notifications_options translate="label" module="veles_notifications">
+            <label>Customer Notifications Config</label>
+            <tab>veles_notifications_config</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <rules translate="label">
+                    <label>Customer Notifications</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <shopping_cart_rule_id>
+                            <label>Cart Rule For Coupon Code</label>
+                            <comment>
+                                Select a Shopping Cart Price Rule  for which will be generated new coupons.
+                                Or firstly create new one and then select this rule here.
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>veles_notifications/shoppingCartPriceRules</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shopping_cart_rule_id>
+                    </fields>
+                </rules>
+            </groups>
+        </veles_notifications_options>
+    </sections>
+</config>

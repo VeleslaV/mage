@@ -7,7 +7,6 @@
             $model = Mage::registry('current_rule');
 
             $form = new Varien_Data_Form();
-
             $fieldset = $form->addFieldset('sender_rule_form', array('legend' => $helper->__('Edit Rule. Sender Information')));
 
             $fieldset->addField('sender_name', 'text', array(

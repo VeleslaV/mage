@@ -7,6 +7,8 @@
             $this->_controller = 'adminhtml_rules';
         }
 
+
+
         public function getHeaderText()
         {
             $helper = Mage::helper('veles_notifications');

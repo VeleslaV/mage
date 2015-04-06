@@ -16,6 +16,8 @@
             return parent::_prepareCollection();
         }
 
+
+
         protected function _prepareColumns()
         {
             $helper = Mage::helper('veles_notifications');
@@ -51,6 +53,12 @@
                 'type' => 'text',
             ));
 
+            $this->addColumn('coupon', array(
+                'header' => $helper->__('Coupon Code'),
+                'index' => 'coupon',
+                'type' => 'text',
+            ));
+
             $this->addColumn('created_at', array(
                 'header' => $helper->__('Created At'),
                 'width' => '140px',
@@ -72,6 +80,28 @@
                 'type' => 'options',
                 'options' => $helper->getQueueStatusesOptions(),
             ));
+
+            $this->addColumn('send_notification', array(
+                'header'    => $helper->__('Send Now'),
+                'width'     => '70px',
+                'type'      => 'action',
+                'getter'     => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption' => $helper->__('Send Now'),
+                        'url'     => array(
+                            'base'=>'notifications/test/test',
+                            'params'=>array('qid' => $this->getId())
+                        ),
+                        'field'   => 'qid',
+                        'popup'     =>  true
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false,
+                'index'     => 'stores',
+            ));
+
 
             return parent::_prepareColumns();
         }

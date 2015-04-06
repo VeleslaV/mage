@@ -21,6 +21,8 @@
             return parent::_prepareCollection();
         }
 
+
+
         protected function _prepareColumns()
         {
             $helper = Mage::helper('veles_notifications');
@@ -66,29 +68,30 @@
                 'options' => $helper->getBaseStatusesOptions(),
             ));
 
-            $this->addColumn('action',
-                array(
-                    'header'    => $helper->__('Action'),
-                    'width'     => '50px',
-                    'type'      => 'action',
-                    'getter'     => 'getId',
-                    'actions'   => array(
-                        array(
-                            'caption' => $helper->__('Edit'),
-                            'url'     => array(
-                                'base'=>'*/*/edit',
-                                'params'=>array('id' => $this->getId())
-                            ),
-                            'field'   => 'id'
-                        )
-                    ),
-                    'filter'    => false,
-                    'sortable'  => false,
-                    'index'     => 'stores',
-                ));
+            $this->addColumn('action', array(
+                'header'    => $helper->__('Action'),
+                'width'     => '50px',
+                'type'      => 'action',
+                'getter'     => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption' => $helper->__('Edit'),
+                        'url'     => array(
+                            'base'=>'*/*/edit',
+                            'params'=>array('id' => $this->getId())
+                        ),
+                        'field'   => 'id'
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false,
+                'index'     => 'stores',
+            ));
 
             return parent::_prepareColumns();
         }
+
+
 
         protected function _prepareMassaction()
         {
@@ -101,6 +104,8 @@
             ));
             return $this;
         }
+
+
 
         public function getRowUrl($model)
         {

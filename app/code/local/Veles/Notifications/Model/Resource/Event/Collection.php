@@ -6,4 +6,5 @@
             parent::_construct();
             $this->_init('veles_notifications/event');
         }
+
     }

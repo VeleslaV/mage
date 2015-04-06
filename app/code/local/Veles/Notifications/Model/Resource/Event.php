@@ -5,4 +5,5 @@
         {
             $this->_init('veles_notifications/veles_notifications_events_table', 'event_id');
         }
+
     }

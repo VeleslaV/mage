@@ -11,6 +11,8 @@
             $this->_headerText = $helper->__('Notification Events');
         }
 
+
+
         protected function _prepareLayout() {
             $this->_removeButton('add');
 

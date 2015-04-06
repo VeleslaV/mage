@@ -9,6 +9,8 @@
             return parent::_prepareCollection();
         }
 
+
+
         protected function _prepareColumns()
         {
             $helper = Mage::helper('veles_notifications');

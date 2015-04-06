@@ -5,4 +5,5 @@
         {
             $this->_init('veles_notifications/veles_notifications_rules_table', 'rule_id');
         }
+
     }

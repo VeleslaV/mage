@@ -12,6 +12,8 @@
             $this->_headerText = $helper->__('Notification Queue Information');
         }
 
+
+
         protected function _prepareLayout() {
             $this->_removeButton('add');
 

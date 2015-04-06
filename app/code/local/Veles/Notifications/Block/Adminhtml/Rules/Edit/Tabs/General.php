@@ -20,7 +20,27 @@
                 'label' => $helper->__('Rule Event'),
                 'required' => true,
                 'name' => 'event_id',
-                'values' => $helper->getRuleEvents(),
+                'values' => $helper->getRuleEvents("start"),
+            ));
+
+            $fieldset->addField('cancel_event_id', 'select', array(
+                'label' => $helper->__('Rule Cancel Event'),
+                'required' => false,
+                'name' => 'cancel_event_id',
+                'values' => $helper->getRuleEvents("cancel"),
+            ));
+
+            $fieldset->addField('consider_quantity', 'select', array(
+                'label' => $helper->__('Consider quantity of bought products?'),
+                'required' => true,
+                'name' => 'consider_quantity',
+                'values' => $helper->getBaseStatuses(),
+            ));
+
+            $fieldset->addField('products_count', 'text', array(
+                'label' => $helper->__('Number of products purchased for discounts'),
+                'required' => false,
+                'name' => 'products_count',
             ));
 
             $fieldset->addField('rule_status', 'select', array(
@@ -34,5 +54,15 @@
             $this->setForm($form);
 
             return parent::_prepareForm();
+        }
+
+        protected function _toHtml()
+        {
+            $dependency_block = $this->getLayout()
+                ->createBlock('adminhtml/widget_form_element_dependence')
+                ->addFieldMap('products_count', 'products_count')
+                ->addFieldMap('consider_quantity', 'consider_quantity')
+                ->addFieldDependence('products_count', 'consider_quantity', '1');
+            return parent::_toHtml() . $dependency_block->toHtml();
         }
     }

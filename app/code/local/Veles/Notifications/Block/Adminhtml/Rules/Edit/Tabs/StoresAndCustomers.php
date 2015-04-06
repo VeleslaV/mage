@@ -3,12 +3,14 @@
     {
         protected function _prepareForm()
         {
+            /** @var Veles_Notifications_Helper_Data $helper */
             $helper = Mage::helper('veles_notifications');
             $model = Mage::registry('current_rule');
-
             $form = new Varien_Data_Form();
 
-            $storeFieldset = $form->addFieldset('stores_rule_form', array('legend' => $helper->__('Edit Rule. Store View Information')));
+            $storeFieldset = $form->addFieldset('stores_rule_form', array(
+                'legend' => $helper->__('Edit Rule. Store View Information'))
+            );
 
             if (!Mage::app()->isSingleStoreMode()) {
                 $storeFieldset->addField('store_id', 'select', array(
@@ -24,7 +26,9 @@
                 ));
             }
 
-            $groupFieldset = $form->addFieldset('groups_rule_form', array('legend' => $helper->__('Edit Rule. Customers Group Information')));
+            $groupFieldset = $form->addFieldset('groups_rule_form', array(
+                'legend' => $helper->__('Edit Rule. Customers Group Information'))
+            );
             $groupFieldset->addField('group_id', 'select', array(
                 'label' => $helper->__('Customers Group'),
                 'required' => true,

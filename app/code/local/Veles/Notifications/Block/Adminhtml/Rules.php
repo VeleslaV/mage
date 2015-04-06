@@ -12,4 +12,5 @@
             $this->_headerText = $helper->__('Notification Rules Management');
             $this->_addButtonLabel = $helper->__('Add New Rule');
         }
+
     }

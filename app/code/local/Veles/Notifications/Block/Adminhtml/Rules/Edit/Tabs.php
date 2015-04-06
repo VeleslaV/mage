@@ -11,6 +11,8 @@
             $this->setTitle($helper->__('Rule Configuration'));
         }
 
+
+
         protected function _prepareLayout()
         {
             $helper = Mage::helper('veles_notifications');

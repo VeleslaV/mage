@@ -1,5 +1,9 @@
 <?php
-    class Veles_Notifications_Model_Event extends Mage_Core_Model_Abstract
+
+/**
+ * Class Veles_Notifications_Model_Event
+ */
+class Veles_Notifications_Model_Event extends Mage_Core_Model_Abstract
     {
         public function _construct()
         {
@@ -7,6 +11,12 @@
             $this->_init('veles_notifications/event');
         }
 
+
+
+        /**
+         * @param $eventName
+         * @return mixed
+         */
         public function getEventIdByName($eventName)
         {
             $eventCollection = $this->getCollection();

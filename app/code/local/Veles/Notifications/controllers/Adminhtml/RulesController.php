@@ -8,10 +8,14 @@
             $this->renderLayout();
         }
 
+
+
         public function newAction()
         {
             $this->_forward('edit');
         }
+
+
 
         public function editAction()
         {
@@ -31,12 +35,14 @@
             $this->renderLayout();
         }
 
+
+
         public function saveAction()
         {
             if ($data = $this->getRequest()->getPost()) {
                 try {
                     $model = Mage::getModel('veles_notifications/rule');
-                    $model->setData($data)->setId($this->getRequest()->getParam('rule_id')); // there
+                    $model->setData($data)->setId($this->getRequest()->getParam('rule_id'));
                     $model->save();
 
                     Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Notification rule data was saved successfully'));
@@ -56,6 +62,8 @@
             $this->_redirect('*/*/');
         }
 
+
+
         public function deleteAction()
         {
             if ($id = $this->getRequeParam('rule_id')) {
@@ -70,16 +78,18 @@
             $this->_redirect('*/*/');
         }
 
+
+
         public function massDeleteAction()
         {
-            $customers = $this->getRequest()->getParam('rules', null);
+            $rules = $this->getRequest()->getParam('rules', null);
 
-            if (is_array($customers) && sizeof($customers) > 0) {
+            if (is_array($rules) && sizeof($rules) > 0) {
                 try {
-                    foreach ($customers as $id) {
+                    foreach ($rules as $id) {
                         Mage::getModel('veles_notifications/rule')->setId($id)->delete();
                     }
-                    $this->_getSession()->addSuccess($this->__('Total of %d line have been deleted', sizeof($customers)));
+                    $this->_getSession()->addSuccess($this->__('Total of %d line have been deleted', sizeof($rules)));
                 } catch (Exception $e) {
                     $this->_getSession()->addError($e->getMessage());
                 }
